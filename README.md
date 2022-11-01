@@ -223,7 +223,21 @@ generating a build.
 The default solver for initial placement is single threaded. If you would like
 to enable GPU and use the CUDA solver, set `-DGPU=true` at cmake time.
 
-Also, remember to install CUDA Toolkit and proper driver manually. See https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
+Also, remember to install CUDA Toolkit and proper driver manually. 
+A version of cuda toolkit supporting CUDA17 and version cmake>=3.18 are needed. 
+See https://docs.nvidia.com/cuda/cuda-installation-guide-linux/index.html
+To install manually (with proper CUDA drivers) use:
+
+``` shell
+# clone the repository and run below from OpenROAD directory
+mkdir build
+cd build
+# replace compute_capability with your GPU "compute_capability" (see https://developer.nvidia.com/cuda-gpus#compute i.e. 86 for Ampere)
+# replace "/usr/local/cuda-11.8/bin/nvcc" with the path to nvcc
+[sudo] cmake .. -DGPU=true -DCMAKE_CUDA_ARCHITECTURES=compute_capability -DCMAKE_CUDA_COMPILER=/usr/local/cuda-11.8/bin/nvcc
+[sudo] make
+[sudo] make install
+```
 
 ## Regression Tests
 
